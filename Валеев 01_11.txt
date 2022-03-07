@@ -1,0 +1,41 @@
+Валеев
+3)
+program p3(input,output);
+var p,c : char;
+    
+begin
+  read(p);
+  read(c);
+  while c<>'.' do begin
+    if (p='p') and (c='h') then  ????
+      write('f')
+    else
+      write(p);
+    p:=c;
+    read(c)
+  end;
+  
+end.
+
+4)
+program p4(input,output);
+var s :char;
+    t :boolean;
+begin
+  read(s);
+  t:=false;
+  while s<>'.' do begin
+    if s=' ' then begin
+      if not(t) then begin
+        write(s);
+        t:=true
+      end
+    end
+    else begin
+      write(s);
+      t:=false
+    end;
+    read(s)
+  end;
+end.
+
