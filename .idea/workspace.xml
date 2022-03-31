@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f82e882-bf7a-4a54-af0a-cda688fd753e" name="Changes" comment="Homework 1 Vovk Mikhail">
-      <change beforePath="$PROJECT_DIR$/01. ML Challenges/homework_1.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/01. ML Challenges/homework_1.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/01. ML Challenges/seminar_1.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/01. ML Challenges/seminar_1.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02. Data Wrangling/fifaeda/fifaeda.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/02. Data Wrangling/fifaeda/fifaeda.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02. Data Wrangling/inclass_matplotlib.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/02. Data Wrangling/inclass_matplotlib.ipynb" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/02. Data Wrangling/inclass_pandas.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/02. Data Wrangling/inclass_pandas.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/05. Maths 3/ML_seminar_for_students.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/05. Maths 3/ML_seminar_for_students.ipynb" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,6 +12,14 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -29,8 +34,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/.." />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="advanced.settings" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
