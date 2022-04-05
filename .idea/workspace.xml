@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="1ab300a3-6c26-48a7-871e-d8c40643a134" name="Changes" comment="" />
+    <list default="true" id="1ab300a3-6c26-48a7-871e-d8c40643a134" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/05. Maths 3/.ipynb_checkpoints/ML_seminar_for_students-checkpoint.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/06. Overfittng problem/.ipynb_checkpoints/Tinkoff_Generation_3_linear_regression_inclass-checkpoint.ipynb" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/06. Overfittng problem/.ipynb_checkpoints/tinkoff_generation_3_linear_regression_hw-9f3d5f4b-f3e0-46c2-97de-ea807033b9a1-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/05. Maths 3/ML_seminar_for_students.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/05. Maths 3/ML_seminar_for_students.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="hw5" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="25c1evYxDDcCsRij6Xv9RcN1toq" />
@@ -30,5 +42,17 @@
       <updated>1645811662427</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
 </project>
