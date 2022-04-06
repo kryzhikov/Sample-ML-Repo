@@ -1,6 +1,6 @@
 # Maths 3
 
-### HW.ipubn
+### HW.ipunb
 - Основной файл
 
 ### Homework: 
