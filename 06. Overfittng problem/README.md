@@ -1,6 +1,7 @@
 ## Overfitting problem 
 
 Семинар в папке 
+Добавлены заметки по кроссвалидации
 
 ### ДЗ: 
 - В ноутбуке Tinkoff_Generation_3_linear_regression_inclass.ipynb Решите доп. задачи в файле с занятием  - 4 балла
