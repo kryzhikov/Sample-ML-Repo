@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4f82e882-bf7a-4a54-af0a-cda688fd753e" name="Changes" comment="Homework 1 Vovk Mikhail">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/07. Classification Task/Task_4.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/07. Classification Task/Task_4.ipynb" afterDir="false" />
     </list>
