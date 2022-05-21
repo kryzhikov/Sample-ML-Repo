@@ -71,11 +71,11 @@
     {% endif %}
 
 
-    {% for title, annotation, score in results %}
+    {% for title, annotation, url, score  in results %}
         <div class='result'>
             <div class='score'>{{ score }} </div>
             <div class='headline'><a href={{ url }}>{{ title }}</a></div>
-            <div class='annotation'>{{ annotation | replace('\n', ' / '|safe) }}</div>
+            <div class='annotation'>{{ annotation }}</div>
         </div>
     {% endfor %}
 </div>

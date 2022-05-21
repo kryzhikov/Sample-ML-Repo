@@ -10,9 +10,13 @@ build_index()
 def index():
     start_time = time()
     query = request.args.get('query')
+
     if query is None:
         query = ''
+
     documents = retrieve(query)
+    print(documents)
+
     scored = [(doc, score(query, doc)) for doc in documents]
     scored = sorted(scored, key=lambda doc: -doc[1])
     results = [doc.format(query)+['%.2f' % scr] for doc, scr in scored] 
@@ -20,7 +24,7 @@ def index():
         'index.html',
         time="%.2f" % (time()-start_time),
         query=query,
-        search_engine_name='MedFind',
+        search_engine_name='Articoogle',
         results=results
     )
 
