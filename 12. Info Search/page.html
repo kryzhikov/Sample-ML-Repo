@@ -1,0 +1,36 @@
+<!doctype html>
+<head>
+    <head>
+        <title>{{ search_engine_name }}</title>
+        <meta charset="utf-8"> 
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap');
+            #content {
+                padding-left: 20px;
+                width: 640px;
+                display: inline-block;
+            }
+            a {
+                color: #1a0dab;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            body {
+                font-size: 24px;
+                padding: 12px;
+                font-family: 'Plus Jakarta Sans', sans-serif;
+            }
+        </style>
+    </head>
+</head>
+<body>
+    <h1>{{ title }}</h1>
+    <a href={{ url }}>Ссылка на оригинал на Medium.com</a>
+    <p>
+        {% autoescape false %}
+            {{ text }}
+        {% endautoescape %}
+    </p>
+</body>

@@ -4,3 +4,5 @@
 __pycache__/
 .mapbox_token
 index.json
+*.vec
+*.log

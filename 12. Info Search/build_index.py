@@ -21,6 +21,9 @@ class Document:
     def get_text(self):
         return self.title + self.text + ' '.join(self.tags)
 
+    def str_tags(self):
+        return ' '.join(self.tags)
+
     def format(self, query):
         # возвращает пару тайтл-текст-url, отформатированную под запрос
         return [self.title, self.text[:150] + ' ...', self.url]
@@ -32,8 +35,7 @@ class Document:
         return f'{self.title[:10]}... {self.text[:10]}... {self.url}, {self.tags[:3]}'
 
 
-LENGTH = 10
-# index = mp.Array(mp.Manager().dict(), range(LENGTH))
+LENGTH = 100
 
 def str_to_list(str):
     elements = str.split(',')
@@ -46,12 +48,16 @@ def str_to_list(str):
 
 
 def add_new_document(info):
-    folder.append(Document(
+    return Document(
         info['title'], info['text'], info['url'], str_to_list(info['tags'])
-    ))
+    )
 
 
-def save_index():
+def template(info):
+    return Document('title', 'text', 'url', [str(info)])
+
+
+def save_index(index):
     with open('12. Info Search\index.json', 'w') as f:
         pages = []
         for elem in index:
@@ -64,17 +70,30 @@ def save_index():
 def build():
     df = pd.read_csv('12. Info Search\medium_articles.csv')
 
-    # for i in range(LENGTH):
-    #     add_new_document(df.iloc[i])
-    print(folder.len())
+    index = []
+    for i in range(LENGTH):
+        index.append( add_new_document(df.iloc[i]))
 
-    with cf.ProcessPoolExecutor() as executor:
-        executor.map(add_new_document, [df.iloc[i] for i in range(LENGTH)])
 
-    # print(folder.len())
-    # save_index()
+    # with cf.ProcessPoolExecutor() as executor:
+    #     executor.map(add_new_document, [df.iloc[i] for i in range(LENGTH)])
+
+    # with cf.ProcessPoolExecutor() as executor:
+    #     res = [executor.submit(template, i) for i in range(LENGTH)]
+
+    #     for f in cf.as_completed(res):
+    #         print(f.result())
+
+    # pool = mp.Pool()
+
+    # index = pool.map(template, [df.iloc[i] for i in range(LENGTH)])
+
+    # pool.close()
+    # pool.join()
+
+    # print(index)
+    save_index(index)
 
 
 if __name__ == '__main__':
-    
     build()

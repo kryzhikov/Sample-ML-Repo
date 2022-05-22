@@ -5,6 +5,7 @@
     <title>{{ search_engine_name }}</title>
     <meta charset="utf-8"> 
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;700&display=swap');
         #content {
             padding-left: 20px;
             width: 640px;
@@ -20,7 +21,7 @@
         body {
             font-size: 24px;
             padding: 12px;
-            font: Helvetica, sans-serif;
+            font-family: 'Plus Jakarta Sans', sans-serif;
         }
         #title {
             background-image: linear-gradient(to right, blue, red, orange, blue, green, red);
@@ -71,10 +72,10 @@
     {% endif %}
 
 
-    {% for title, annotation, url, score  in results %}
+    {% for title, annotation, url, score, id  in results %}
         <div class='result'>
             <div class='score'>{{ score }} </div>
-            <div class='headline'><a href={{ url }}>{{ title }}</a></div>
+            <div class='headline'><a href='/page/{{ id }}'>{{ title }}</a></div>
             <div class='annotation'>{{ annotation }}</div>
         </div>
     {% endfor %}
