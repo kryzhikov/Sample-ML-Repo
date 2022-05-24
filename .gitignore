@@ -1,1 +1,3 @@
 .DS_Store
+.mapbox_token
+*.csv
