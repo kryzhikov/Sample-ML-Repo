@@ -9,19 +9,16 @@ import logging
 
 from tqdm import tqdm
 from itertools import islice
-from build_index import Document
+from build_index import Document, unify_word
 from nltk import pos_tag, sent_tokenize, word_tokenize
 from nltk.corpus import wordnet as wn, stopwords
-from nltk.stem import PorterStemmer, WordNetLemmatizer
 from sklearn.feature_extraction.text import TfidfVectorizer
+from nltk.stem import WordNetLemmatizer
 
 
 # вот ссылка на датасет - https://www.kaggle.com/datasets/fabiochiusano/medium-articles
 # там много-много разных текстиков с сайти Medium
 
-
-# LENGTH = 192368
-# LENGTH = 10
 
 # TODO: попробовать заменить на LancasterStemmer, сделать documents np.array
 
@@ -49,19 +46,6 @@ def download_nltk():
     nltk.download('stopwords')
 
 
-def unify_word(word:str) -> str:
-    # logging.debug('Stemming')
-    start = time.time()
-
-    stemmer = PorterStemmer() 
-
-    word = word.lower()
-    word = re.sub(r'\B\W\b|\b\W\B|\B\W\B', ' ', word)
-    word = stemmer.stem(word)
-    # logging.info(f'Stemming and non-letters deletion: {((time.time() - start) * 1000)}ms')
-    return word
-
-
 def get_index() -> None:
     # считывает сырые данные и строит индекс
     # данные я читаю из index.json, который надо создать, запустив файл build_index.py
@@ -72,26 +56,18 @@ def get_index() -> None:
         info = json.load(f)
 
         for elem in info:
+            index[elem] = info[elem]
+
+    with open('12. Info Search\documents.json') as f:
+        info = json.load(f)
+
+        for elem in info:
             documents.append(Document(**elem))
 
     logging.info(f'Reading data from file: {((time.time() - start) * 1000):.2f}ms')
 
     # vecs = load_vectors('12. Info Search\crawl-300d-2M.vec', 100000)
     download_nltk()
-
-    start = time.time()
-    for i, doc in enumerate(documents):
-        text = doc.get_text()
-        for word in text.split():
-            word = unify_word(word)
-        
-            if word not in index.keys():
-                index[word] = set()
-                # words_frequency[word] = 0
-
-            index[word].add(i)
-            # words_frequency[word] += 1
-    logging.info(f'Building index: {((time.time() - start) * 1000):.2f}ms')
 
 
 def to_wordnet_tag(elem):

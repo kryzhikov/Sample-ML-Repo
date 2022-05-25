@@ -6,7 +6,7 @@ import logging
 app = Flask(__name__, template_folder='.')
 get_index()
 
-logging.basicConfig(filename='12. Info Search\Logs\server.log', filemode='a', format='%(message)s', level='DEBUG')
+# logging.basicConfig(filename='12. Info Search\Logs\server.log', filemode='a', format='%(message)s', level='DEBUG')
 
 @app.route('/', methods=['GET'])
 def index():
