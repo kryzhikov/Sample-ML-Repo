@@ -1,1 +1,3 @@
-# Sample-ML-Repo
+# Tinkoff Generation
+
+Фетисов Данила
