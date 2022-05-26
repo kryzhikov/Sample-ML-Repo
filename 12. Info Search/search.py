@@ -2,6 +2,7 @@ import random
 import json
 import re
 import io
+from unittest.mock import sentinel
 import nltk
 import numpy as np
 import time
@@ -9,7 +10,7 @@ import logging
 
 from tqdm import tqdm
 from itertools import islice
-from build_index import Document
+from build_index import Document, unify_word
 from nltk import pos_tag, sent_tokenize, word_tokenize
 from nltk.corpus import wordnet as wn, stopwords
 from nltk.stem import PorterStemmer, WordNetLemmatizer
@@ -18,10 +19,6 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 
 # вот ссылка на датасет - https://www.kaggle.com/datasets/fabiochiusano/medium-articles
 # там много-много разных текстиков с сайти Medium
-
-
-# LENGTH = 192368
-# LENGTH = 10
 
 # TODO: попробовать заменить на LancasterStemmer, сделать documents np.array
 
@@ -49,49 +46,31 @@ def download_nltk():
     nltk.download('stopwords')
 
 
-def unify_word(word:str) -> str:
-    # logging.debug('Stemming')
-    start = time.time()
-
-    stemmer = PorterStemmer() 
-
-    word = word.lower()
-    word = re.sub(r'\B\W\b|\b\W\B|\B\W\B', ' ', word)
-    word = stemmer.stem(word)
-    # logging.info(f'Stemming and non-letters deletion: {((time.time() - start) * 1000)}ms')
-    return word
-
-
 def get_index() -> None:
     # считывает сырые данные и строит индекс
     # данные я читаю из index.json, который надо создать, запустив файл build_index.py
+    global documents
     logging.debug('Data reading started')
 
     start = time.time()
-    with open('12. Info Search\index.json') as f:
+    with open('12. Info Search\documents.json') as f:
         info = json.load(f)
 
         for elem in info:
             documents.append(Document(**elem))
+
+    documents = np.array(documents, dtype='object')
 
     logging.info(f'Reading data from file: {((time.time() - start) * 1000):.2f}ms')
 
     # vecs = load_vectors('12. Info Search\crawl-300d-2M.vec', 100000)
     download_nltk()
 
-    start = time.time()
-    for i, doc in enumerate(documents):
-        text = doc.get_text()
-        for word in text.split():
-            word = unify_word(word)
-        
-            if word not in index.keys():
-                index[word] = set()
-                # words_frequency[word] = 0
+    with open('12. Info Search\index.json') as f:
+        info = json.load(f)
 
-            index[word].add(i)
-            # words_frequency[word] += 1
-    logging.info(f'Building index: {((time.time() - start) * 1000):.2f}ms')
+        for elem in info.keys():
+            index[elem] = info[elem]
 
 
 def to_wordnet_tag(elem):
@@ -139,12 +118,38 @@ def lemmatize(text, lemmatizer, tokenize='sent'):
     return ' '.join(result)
 
 
+def stemmize(text, stemmer, tokenize='sent'):
+    sw_en = stopwords.words('english')
+    text = text.lower()
+    text = ' '.join([word for word in text.split() if word not in sw_en])
+
+    if tokenize == 'sent':
+        tokenized = sent_tokenize(text)
+    if tokenize == 'word':
+        tokenized = word_tokenize(text)
+
+    # стемминг
+    result = []
+    for sent in tokenized:
+        lemmatized = []
+
+        if tokenize == 'word':
+            lemmatized.append(stemmer.stem(sent))
+        if tokenize == 'sent':
+            for word in sent.split():
+                lemmatized.append(stemmer.stem(word))
+        
+        result.append(' '.join(lemmatized))
+
+    return ' '.join(result)
+
+
 def get_tf_idf_score(query, corpus_titles, corpus_texts, corpus_tags,
-                         weights:list=[1, 1, 1]) -> int:
+                         weights:list=[2, 1, 4]) -> int:
 
     vectorizer_titles = TfidfVectorizer(smooth_idf=True, norm='l2').fit([corpus_titles])
     tf_idf_title = vectorizer_titles.transform([corpus_titles]).toarray()
-    
+
     vectorizer_texts = TfidfVectorizer(smooth_idf=True, norm='l2').fit([corpus_texts])
     tf_idf_text = vectorizer_texts.transform([corpus_texts]).toarray()
 
@@ -173,16 +178,21 @@ def get_tf_idf_score(query, corpus_titles, corpus_texts, corpus_tags,
 def score(query:str, documents:list) -> list:
     # возвращает какой-то скор для пары запрос-документ
     # больше -- релевантнее
+    if query == '':
+        return zip(documents, [0 for _ in range(len(documents))])
+
     logging.debug(f'Scoring started')
 
-    # TODO: tf-idf+, word2vec, веса
+    # TODO: word2vec
     start = time.time()
     lemmatizer = WordNetLemmatizer()
-    corpus_titles = [lemmatize(doc.title, lemmatizer) for doc in documents]
-    corpus_texts = [lemmatize(doc.text, lemmatizer) for doc in documents]
-    corpus_tags = [lemmatize(doc.str_tags(), lemmatizer) for doc in documents]
+    stemmizer = PorterStemmer()
 
-    query = lemmatize(query, lemmatizer, tokenize='word')
+    corpus_titles = [stemmize(doc.title, stemmizer) for doc in documents]
+    corpus_texts = [stemmize(doc.text, stemmizer) for doc in documents]
+    corpus_tags = [stemmize(doc.str_tags(), stemmizer) for doc in documents]
+
+    query = stemmize(query, stemmizer, tokenize='word')
     logging.info(f'Lemmatizing all docs: {((time.time() - start) * 1000):.2f}ms')
 
     start = time.time()
@@ -215,6 +225,24 @@ def find_union(arr1:list, arr2:list) -> list:
     return union
 
 
+def sort_by_count(query:str, documents:list)->list:
+    counter = []
+
+    for doc in documents:
+        result = 0
+
+        for word in query.split():
+            word = unify_word(word)
+            result += doc[0].get_text().lower().count(word)
+
+        counter.append((result, doc))
+    
+    counter.sort(key=lambda x: x[0], reverse=True)
+    counter = np.array(counter)
+
+    return counter[:, 1]
+
+
 def get_docs_by_id(ids:list) -> list:
     logging.debug('Getting docs by id')
 
@@ -243,15 +271,20 @@ def retrieve(query:str) -> list:
     if len(usage) == 0:
         return documents[:50], [i for i in range(0, 50)]
     if len(usage) == 1:
-        return get_docs_by_id(usage[0])[:50], usage[0][:50]
+        documents = zip(get_docs_by_id(usage[0]), usage[0]) 
+        documents = sort_by_count(query, documents)
+        return zip(*list(documents[:50]))
 
     start = time.time()
     candidates = find_union(usage[0], usage[1])
     for i in range(2, len(usage)):
         candidates = find_union(candidates, usage[i])
     logging.info(f'Set union: {((time.time() - start) * 1000):.2f}ms')
+    
+    documents = list(zip(get_docs_by_id(candidates[:100]), candidates[:100]))
+    documents = sort_by_count(query, documents)
 
-    return get_docs_by_id(candidates)[:50], candidates[:50]
+    return zip(*list(documents[:50]))
 
 
 def pretify(text):
@@ -262,12 +295,13 @@ def get_doc(id:int) -> Document:
     return documents[id]
 
 if __name__ == '__main__':
-    query = ''
+    query = 'mental health'
     get_index()
 
     documents, ids = retrieve(query)
 
     scored = score(query, documents)
-    scored = sorted(scored, key=lambda doc: -doc[1])
+    scored = list(zip(scored, ids))
 
+    scored = sorted(scored, key=lambda doc: -doc[0][1])
     print(scored[:5])
