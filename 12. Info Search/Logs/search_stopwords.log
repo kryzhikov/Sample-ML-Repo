@@ -1,0 +1,52 @@
+DEBUG Data reading started
+INFO Reading data from file: 3.00ms
+INFO Building index: 1818.00ms
+
+DEBUG Retrieving 50 docs started
+INFO Find all documents containing words: 0.00ms
+DEBUG Getting docs by id
+INFO Getting docs took: 0.00ms
+INFO Retrieve: 0.00ms
+DEBUG Scoring started
+INFO Lemmatizing all docs: 1623.57ms
+INFO Counting all score took: 25.00ms
+INFO Score: 1648.57ms
+INFO Sorting: 0.00ms
+INFO 127.0.0.1 - - [22/May/2022 18:52:27] "GET /?query=covid HTTP/1.1" 200 -
+
+DEBUG Retrieving 50 docs started
+INFO Find all documents containing words: 0.00ms
+DEBUG Getting docs by id
+INFO Getting docs took: 0.00ms
+INFO Retrieve: 0.00ms
+DEBUG Scoring started
+INFO Lemmatizing all docs: 2501.33ms
+INFO Counting all score took: 158.00ms
+INFO Score: 2660.33ms
+INFO Sorting: 0.00ms
+INFO 127.0.0.1 - - [22/May/2022 18:52:48] "GET /?query=the HTTP/1.1" 200 -
+
+DEBUG Retrieving 50 docs started
+INFO Find all documents containing words: 0.00ms
+INFO Set union: 0.00ms
+DEBUG Getting docs by id
+INFO Getting docs took: 0.00ms
+INFO Retrieve: 0.00ms
+DEBUG Scoring started
+INFO Lemmatizing all docs: 704.49ms
+INFO Counting all score took: 64.38ms
+INFO Score: 769.87ms
+INFO Sorting: 0.00ms
+INFO 127.0.0.1 - - [22/May/2022 18:52:41] "GET /?query=mental+health HTTP/1.1" 200 -
+
+DEBUG Retrieving 50 docs started
+INFO Find all documents containing words: 0.00ms
+DEBUG Getting docs by id
+INFO Getting docs took: 0.00ms
+INFO Retrieve: 0.00ms
+DEBUG Scoring started
+INFO Lemmatizing all docs: 239.00ms
+INFO Counting all score took: 14.00ms
+INFO Score: 253.00ms
+INFO Sorting: 0.00ms
+INFO 127.0.0.1 - - [22/May/2022 18:52:53] "GET /?query=sun HTTP/1.1" 200 -
