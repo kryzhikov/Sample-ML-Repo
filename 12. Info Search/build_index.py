@@ -1,12 +1,14 @@
 import concurrent.futures as cf
 import multiprocessing as mp
-from multiprocessing import Array, Lock
-from nltk.stem import PorterStemmer
+from multiprocessing import Array
 import pandas as pd
 import re
 import json
 import time
 import logging
+from nltk.stem import PorterStemmer
+
+logging.basicConfig(filename='12. Info Search\Logs\search.log', filemode='a', format='%(levelname)s %(message)s', level='DEBUG')
 
 
 class Document:
@@ -39,8 +41,6 @@ class Document:
         return f'{self.title[:10]}... {self.text[:10]}... {self.url}, {self.tags[:3]}'
 
 
-logging.basicConfig(filename='12. Info Search\Logs\search.log', filemode='a', format='%(levelname)s %(message)s', level='DEBUG')
-# LENGTH = 192368
 LENGTH = 50000
 
 def str_to_list(str):
@@ -55,12 +55,8 @@ def str_to_list(str):
 
 def add_new_document(info):
     return Document(
-            info['title'], info['text'], info['url'], str_to_list(info['tags'])
+        info['title'], info['text'], info['url'], str_to_list(info['tags'])
     )
-
-
-def template(info):
-    return Document('title', 'text', 'url', [str(info)])
 
 
 def unify_word(word:str) -> str:
@@ -71,67 +67,41 @@ def unify_word(word:str) -> str:
     word = stemmer.stem(word)
     return word
 
+def template(info):
+    return Document('title', 'text', 'url', [str(info)])
 
-def save_index(index):
-    with open('12. Info Search\index.json', 'w') as f:
-        pages = {}
 
-        for key in index.keys():
-            pages[key] = list(index[key])
+def save_documents(documents):
+    with open('12. Info Search\documents.json', 'w') as f:
+        pages = []
+        for elem in documents:
+            pages.append(elem.__dict__())
 
         data = json.dumps(pages)
         f.write(data)
 
 
-def save_docs(docs):
-    with open('12. Info Search\documents.json', 'w') as f:
-        pages = []
+def save_index(index):
+    with open('12. Info Search\index.json', 'w') as f:
+        results = {}
+        for elem in index.keys():
+            results[elem] = list(index[elem])
 
-        for doc in docs:
-            pages.append(doc.__dict__())
-
-        data = json.dumps(pages)
+        data = json.dumps(results)
         f.write(data)
 
 
 def build():
     df = pd.read_csv('12. Info Search\medium_articles.csv')
 
-    start = time.time()
-
     documents = []
     for i in range(LENGTH):
         documents.append( add_new_document(df.iloc[i]))
 
-    print(f'{(time.time() - start):.2f} seconds')
-
-    # with cf.ProcessPoolExecutor() as executor:
-        # executor.map(add_new_document, [(df.iloc[i], results) for i in range(LENGTH)])
-
-    # processes = []
-    # NUMBER_OF_PROCESSES = 4
-
-    # for _ in range(NUMBER_OF_PROCESSES):
-    #     p = mp.Process(target=add_new_document, args=(df.iloc[0], results))
-    #     p.start()
-    #     print('Process started')
-    #     processes.append(p)
-
-    # for pr in processes:
-    #     pr.join()
-    #     print('Joining...')
-
-    # print(results.qsize())
-    # for i in range(LENGTH):
-    #     print(results.get())
-
-    # print('Finished')
-    
-    save_docs(documents)
-
+    save_documents(documents)
     index = {}
-    start = time.time()
 
+    start = time.time()
     for i, doc in enumerate(documents):
         text = doc.get_text()
         for word in text.split():
@@ -141,9 +111,9 @@ def build():
                 index[word] = set()
 
             index[word].add(i)
-    logging.info(f'Building index: {((time.time() - start) * 1000):.2f}ms')
 
     save_index(index)
+    logging.info(f'Building index: {((time.time() - start) * 1000):.2f}ms')
 
 
 if __name__ == '__main__':
