@@ -1,1 +1,10 @@
 .DS_Store
+*.csv
+*.pyc
+__pycache__/
+.mapbox_token
+index.json
+documents.json
+*.vec
+*.log
+*.zip
