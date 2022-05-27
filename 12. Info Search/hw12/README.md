@@ -3,3 +3,6 @@
 Домашнее задание по информационному поиску
 
 Ссылка на датасет: https://drive.google.com/file/d/1lHiGD8MFEo3QKid8xHeFKIwPkbjxmrb0/view?usp=sharing
+
+initialization.py содержит обработку данных
+search.py строит индекс, возвращает список релевантных документов и score
