@@ -1,1 +1,1 @@
-В качестве данных для поисковика взят датеет с описанием фильмов []. Для обработки были применены word2vec и отбрасывание стоп-слов.
+В качестве данных для поисковика взят датеет с описанием фильмов https://drive.google.com/drive/folders/1YRG-Y3rmcckLuPlu6h5QMPQxZ18z5qlx?usp=sharing. Для обработки были применены word2vec (словарь https://dl.fbaipublicfiles.com/fasttext/vectors-english/crawl-300d-2M.vec.zip) и отбрасывание стоп-слов.
