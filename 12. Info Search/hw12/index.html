@@ -1,0 +1,84 @@
+
+<!doctype html>
+<html>
+<head>
+    <title>{{ search_engine_name }}</title>
+    <meta charset="utf-8"> 
+    <style>
+        #content {
+            padding-left: 20px;
+            width: 640px;
+            display: inline-block;
+        }
+        a {
+            color: #1a0dab;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        body {
+            font-size: 24px;
+            padding: 12px;
+            font: Helvetica, sans-serif;
+        }
+        #title {
+            background-image: linear-gradient(to right, blue, red, orange, blue, green, red);
+            -webkit-background-clip: text;
+            color: transparent;
+            display: inline-block;
+            float: left;
+            font-size: 48px;
+            margin-bottom: 40px;
+        }
+        .result {
+            padding: 20px;
+            padding-bottom: 0px;
+        }
+        .headline {
+
+        }
+        .annotation {
+            font-size: 18px;
+        }
+        .score {
+            font-size: 14px;
+            float: right;
+        }
+        input[type=submit]:hover {
+            cursor: pointer;
+        }
+        input:focus {
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+
+<div id='title'>{{ search_engine_name }}</div>
+
+<div id="content">
+
+    <form style='padding: 4px; padding-top: 18px;' method = 'GET'>
+        <input type='text' style='border-radius: 12px; border: 1px solid lightgrey; width:530px; font-size: 20px; padding: 2px; padding-left: 8px;' name='query' value='{{ query }}'>
+        <input type='submit' style='font-size: 20px; border-radius: 12px; border: 1px solid lightgrey; background: #F9F9F9;' value='Search'>
+    </form>
+
+    <hr style='border: none; border-bottom: 1px solid lightgrey;'>
+
+    {% if query != '' %}
+    <div style='font-size:16px; text-align: right; padding-right: 10px;'>Found {{ results|length}} documents in {{ time }} seconds.</div>
+    {% endif %}
+
+
+    {% for title, annotation, score in results %}
+        <div class='result'>
+            <div class='score'>{{ score }} </div>
+            <div class='headline'><a href='#'>{{ title }}</a></div>
+            <div class='annotation'>{{ annotation | replace('\n', ' / '|safe) }}</div>
+        </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>
