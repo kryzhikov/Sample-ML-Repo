@@ -4,3 +4,6 @@
 index.json
 documents.json
 *.vec
+*.jpg
+*.jpeg
+*.zip
