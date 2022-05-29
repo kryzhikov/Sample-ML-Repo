@@ -1,1 +1,9 @@
 .DS_Store
+.mapbox_token
+*.csv
+index.json
+documents.json
+*.vec
+*.jpg
+*.jpeg
+*.zip
