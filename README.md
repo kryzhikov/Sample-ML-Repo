@@ -1,1 +1,1 @@
-# Sample-ML-Repo
+# Sample-ML-Repo, Полетаев Владислав
