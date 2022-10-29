@@ -1,10 +1,1 @@
 .DS_Store
-10. Decision trees + ensembles/catboost_info/catboost_training.json
-.gitignore
-10. Decision trees + ensembles/catboost_info/test_error.tsv
-10. Decision trees + ensembles/catboost_info/test/events.out.tfevents
-.gitignore
-10. Decision trees + ensembles/catboost_info/learn_error.tsv
-.gitignore
-10. Decision trees + ensembles/catboost_info/time_left.tsv
-10. Decision trees + ensembles/catboost_info/learn/events.out.tfevents
