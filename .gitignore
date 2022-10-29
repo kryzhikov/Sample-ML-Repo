@@ -1,14 +1,2 @@
 .DS_Store
-10. Decision trees + ensembles/catboost_info/test_error.tsv
-10. Decision trees + ensembles/catboost_info/time_left.tsv
-.gitignore
-10. Decision trees + ensembles/catboost_info/learn_error.tsv
-10. Decision trees + ensembles/catboost_info/learn/events.out.tfevents
-.gitignore
-10. Decision trees + ensembles/catboost_info/test/events.out.tfevents
-06. Overfittng problem/Линейная_регрессия_презентация_TG_3.pdf
-08. Feature Engineering/hw/catboost_info/time_left.tsv
-.gitignore
-08. Feature Engineering/hw/catboost_info/learn_error.tsv
-08. Feature Engineering/hw/catboost_info/learn/events.out.tfevents
-08. Feature Engineering/hw/catboost_info/catboost_training.json
+
